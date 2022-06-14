@@ -1,11 +1,17 @@
 <template>
   <h1>Internal Sign Up</h1>
+  <button @click="onRegister()">Register</button>
 </template>
 
 <script>
-// @ is an alias to /src
+import router from '@/router';
 
 export default {
-  name: 'SignUp',
-}
+  name: 'SignUpView',
+  methods: {
+    onRegister() {
+      router.push('/success');
+    },
+  },
+};
 </script>
