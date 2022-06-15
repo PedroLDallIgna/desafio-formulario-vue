@@ -32,9 +32,9 @@ export default {
                 if (this.inputValue !== "") {
                     // change the background color to red or green
                     if (Patterns[this.id].test(this.inputValue)) {
-                        this.inputField.style.backgroundColor = '#00ff00';
+                        this.inputField.style.backgroundColor = '#4dff4d35';
                     } else {
-                        this.inputField.style.backgroundColor = '#ff0000';
+                        this.inputField.style.backgroundColor = '#ff4d4d35';
                     }
                 }
             }
@@ -67,7 +67,7 @@ input {
     font-family: 'Nunito', sans-serif;
     font-style: italic;
     font-weight: 400;
-    font-size: 0.85em;
+    font-size: 1em;
     line-height: 1.125;
     color: #767676;
     width: 100%;
@@ -75,5 +75,6 @@ input {
     box-sizing: border-box;
     border: 2px solid #aaaaaa;
     border-radius: 4px;
+    transition: 1s;
 }
 </style>

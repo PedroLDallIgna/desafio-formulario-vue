@@ -18,5 +18,8 @@ export default {
     text-align: start;
     display: block;
     visibility: hidden;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1em;
+    margin: 5px 0 3vh 0;
 }
 </style>

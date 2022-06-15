@@ -12,13 +12,7 @@
       <FormField :field="birthdate" />
     </fieldset>
     <fieldset class="cb-btn">
-      <div>
-        <label for="checkbox">
-          I accept the terms and privacy
-          <input type="checkbox" id="checkbox" required checked>
-          <span></span>
-        </label>
-      </div>
+      <CheckboxComponent :field="checkbox" />
       <div>
         <input type="submit" value="Register" id="register-btn">
       </div>
@@ -29,6 +23,7 @@
 <script>
 import router from '@/router';
 import FormField from './FormField.vue';
+import CheckboxComponent from './form/CheckboxComponent.vue';
 
 export default {
     name: "RegisterForm",
@@ -77,9 +72,7 @@ export default {
         checkbox: {
           id: 'checkbox',
           label: 'I accept the terms and privacy',
-          type: 'checkbox',
           required: true,
-          placeholder: "",
           errorMessage: "You must accept the terms"
         }
       }
@@ -89,7 +82,7 @@ export default {
             router.push("/success");
         },
     },
-    components: { FormField }
+    components: { FormField, CheckboxComponent }
 };
 </script>
 
@@ -124,14 +117,11 @@ form {
 }
 
 .cb-btn {
+  margin: 7vh 0 0 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-label[for="checkbox"] {
-  color: #111111;
 }
 
 .phone-bd input::-webkit-calendar-picker-indicator {
