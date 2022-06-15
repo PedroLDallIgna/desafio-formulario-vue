@@ -13,7 +13,7 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 label {
     font-family: 'Nunito', sans-serif;
     font-weight: 400;

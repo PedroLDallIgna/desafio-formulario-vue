@@ -28,9 +28,6 @@
 
 <script>
 import router from '@/router';
-import ErrorMessage from './form/ErrorMessage.vue';
-import LabelComponent from './form/LabelComponent.vue';
-import InputComponent from './form/InputComponent.vue';
 import FormField from './FormField.vue';
 
 export default {
@@ -92,7 +89,7 @@ export default {
             router.push("/success");
         },
     },
-    components: { ErrorMessage, LabelComponent, InputComponent, FormField }
+    components: { FormField }
 };
 </script>
 

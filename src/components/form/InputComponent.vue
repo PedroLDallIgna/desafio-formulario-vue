@@ -1,11 +1,9 @@
 <template>
     <input :type="type" :required="required" :id="id" :placeholder="placeholder" v-model="inputValue" @change="onValidate()" @focus="validate" />
     <span>{{ validate }}</span>
-    <ErrorMessage v-show="!isValid" :errorMsg="errorMsg" />
 </template>
 
 <script>
-import ErrorMessage from './ErrorMessage.vue';
 import Patterns from '@/Patterns.js';
 
 export default {
@@ -15,17 +13,18 @@ export default {
         required: Boolean,
         id: String,
         placeholder: String,
-        errorMsg: String,
     },
     data() {
         return {
             inputValue: "",
             inputField: null,
             isValid: true,
+            error: null,
         };
     },
     mounted() {
         this.inputField = document.getElementById(this.id);
+        this.error = document.getElementById(`${this.id}-error`);
     },
     computed: {
         validate() {
@@ -47,13 +46,13 @@ export default {
 
             if (this.isValid) {
                 this.inputField.style.borderColor = '#00ff00';
+                this.inputField.style.backgroundColor = '#ffffff';
+                this.error.style.visibility = 'hidden';
             } else {
                 this.inputField.style.borderColor = '#ff0000';
+                this.error.style.visibility = 'visible';
             }
         }
-    },
-    components: {
-        ErrorMessage,
     }
 }
 </script>
@@ -74,5 +73,7 @@ input {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
+    border: 2px solid #aaaaaa;
+    border-radius: 4px;
 }
 </style>
