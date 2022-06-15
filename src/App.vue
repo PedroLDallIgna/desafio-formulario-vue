@@ -32,8 +32,12 @@ main {
 
 .main-container {
   width: 620px;
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 20px;
+  border-radius: 20px;
+  box-shadow: 35px 35px 70px #d9d9d9,
+              -35px -35px 70px #f5f5f5;
+  text-align: center;
 }
 
 h1 {

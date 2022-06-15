@@ -1,7 +1,7 @@
 <template>
     <input :type="type" :required="required" :id="id" :placeholder="placeholder" v-model="inputValue" @change="onValidate()" @focus="validate" />
     <span>{{ validate }}</span>
-    <ErrorMessage v-show="!isValid" :errorMsg="'Invalido'" />
+    <ErrorMessage v-show="!isValid" :errorMsg="errorMsg" />
 </template>
 
 <script>
@@ -15,6 +15,7 @@ export default {
         required: Boolean,
         id: String,
         placeholder: String,
+        errorMsg: String,
     },
     data() {
         return {
@@ -64,7 +65,14 @@ span {
 }
 
 input {
+    font-family: 'Nunito', sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.85em;
+    line-height: 1.125;
+    color: #767676;
     width: 100%;
+    padding: 10px;
     box-sizing: border-box;
 }
 </style>

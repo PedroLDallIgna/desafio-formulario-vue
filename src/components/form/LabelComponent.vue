@@ -13,3 +13,12 @@ export default {
 };
 </script>
 
+<style  scoped>
+label {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    color: #767676;
+    display: block;
+    text-align: start;
+}
+</style>

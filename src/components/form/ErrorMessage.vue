@@ -1,5 +1,5 @@
 <template>
-    <p>{{ errorMsg }}</p>
+    <span>{{ errorMsg }}</span>
 </template>
 
 <script>
@@ -7,13 +7,13 @@ export default {
     name:  "ErrorMessage",
     props: {
         errorMsg: String,
-        validation: Boolean
     }
 }
 </script>
 
 <style scoped>
-p {
+span {
     color: #ff0000;
+    text-align: start;
 }
 </style>

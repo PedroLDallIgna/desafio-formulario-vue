@@ -1,30 +1,15 @@
 <template>
   <form @submit.prevent="onRegister()" novalidate>
     <fieldset class="name">
-      <div>
-        <LabelComponent :for="fullName.id" :label="fullName.label" :isRequired="fullName.required" />
-        <InputComponent :type="fullName.type" :id="fullName.id" :required="fullName.required" :placeholder="fullName.placeholder" />
-      </div>
+      <FormField :field="fullName" />
     </fieldset>
     <fieldset class="email-passwd">
-      <div>
-        <LabelComponent :for="email.id" :label="email.label" />
-        <InputComponent :type="email.type" :id="email.id" :required="email.required" :placeholder="email.placeholder" />
-      </div>
-      <div>
-        <LabelComponent :for="password.id" :label="password.label" />
-        <InputComponent :type="password.type" :id="password.id" :required="password.required" :placeholder="password.placeholder" />
-      </div>
+      <FormField :field="email" />
+      <FormField :field="password" />
     </fieldset>
     <fieldset class="phone-bd">
-      <div>
-        <LabelComponent :for="phone.id" :label="phone.label" />
-        <InputComponent :type="phone.type" :id="phone.id" :required="phone.required" :placeholder="phone.placeholder" />
-      </div>
-      <div>
-        <LabelComponent :for="birthdate.id" :label="birthdate.label" />
-        <InputComponent :type="birthdate.type" :id="birthdate.id" :required="birthdate.required" :placeholder="birthdate.placeholder" />
-      </div>
+      <FormField :field="phone" />
+      <FormField :field="birthdate" />
     </fieldset>
     <fieldset class="cb-btn">
       <div>
@@ -46,6 +31,7 @@ import router from '@/router';
 import ErrorMessage from './form/ErrorMessage.vue';
 import LabelComponent from './form/LabelComponent.vue';
 import InputComponent from './form/InputComponent.vue';
+import FormField from './FormField.vue';
 
 export default {
     name: "RegisterForm",
@@ -106,7 +92,7 @@ export default {
             router.push("/success");
         },
     },
-    components: { ErrorMessage, LabelComponent, InputComponent }
+    components: { ErrorMessage, LabelComponent, InputComponent, FormField }
 };
 </script>
 
@@ -147,27 +133,11 @@ form {
   align-items: center;
 }
 
-label,
-input {
-  font-family: 'Nunito', sans-serif;
-  font-weight: 400;
-  color: #767676;
-  display: block;
-  box-sizing: border-box;
-}
-
-input {
-  font-style: italic;
-  font-size: 0.85em;
-  line-height: 1.125;
-  padding: 12px;
-}
-
 label[for="checkbox"] {
   color: #111111;
 }
 
-#birthdate::-webkit-calendar-picker-indicator {
+.phone-bd input::-webkit-calendar-picker-indicator {
   background: none;
   width: 0;
   height: 0;
