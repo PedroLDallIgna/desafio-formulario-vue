@@ -1,7 +1,7 @@
 <template>
     <div>
         <LabelComponent :for="field.id" :label="field.label" :isRequired="field.required" />
-        <InputComponent :id="field.id" :type="field.type" :required="field.required" :placeholder="field.placeholder" />
+        <InputComponent :id="field.id" :type="field.type" :required="field.required" :placeholder="field.placeholder" @value="getInputValue" />
         <ErrorMessage :id="field.id+'-error'" :errorMsg="field.errorMessage" />
     </div>
 </template>
@@ -21,9 +21,11 @@ export default {
     props: {
         field: Object,
     },
+    emits: [ 'inputValue' ],
     data() {
         return {
             labelElement: null,
+            inputValue: "",
         };
     },
     mounted() {
@@ -31,6 +33,12 @@ export default {
         
         if (this.field.required) {
             this.labelElement.textContent += " *";
+        }
+    },
+    methods: {
+        getInputValue(val) {
+            this.inputValue = val;
+            this.$emit('inputValue', this.inputValue);
         }
     }
 }

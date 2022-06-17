@@ -7,7 +7,6 @@
         </label>
         <ErrorMessage :id="field.id+'-error'" :errorMsg="field.errorMessage" />
     </div>
-    <!-- {{ validate }} -->
 </template>
 
 <script>

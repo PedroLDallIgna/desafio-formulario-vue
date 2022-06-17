@@ -1,5 +1,5 @@
 <template>
-    <input :type="type" :required="required" :id="id" :placeholder="placeholder" v-model="inputValue" @change="onValidate()" @focus="validate" />
+    <input :type="type" :required="required" :id="id" :placeholder="placeholder" v-model="inputValue" @change="onValidate(), $emit('value', inputValue)" @focus="validate" />
     <span>{{ validate }}</span>
 </template>
 
@@ -14,6 +14,7 @@ export default {
         id: String,
         placeholder: String,
     },
+    emits: [ 'value' ],
     data() {
         return {
             inputValue: "",
@@ -33,8 +34,10 @@ export default {
                     // change the background color to red or green
                     if (Patterns[this.id].test(this.inputValue)) {
                         this.inputField.style.backgroundColor = '#4dff4d35';
+                        this.inputField.style.borderColor = '#00ff00';
                     } else {
                         this.inputField.style.backgroundColor = '#ff4d4d35';
+                        this.inputField.style.borderColor = '#ff0000';
                     }
                 }
             }
@@ -76,5 +79,9 @@ input {
     border: 2px solid #aaaaaa;
     border-radius: 4px;
     transition: 1s;
+}
+
+:focus {
+    outline: none;
 }
 </style>

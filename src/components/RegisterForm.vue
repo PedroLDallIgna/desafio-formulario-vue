@@ -1,15 +1,20 @@
 <template>
   <form @submit.prevent="onRegister()" novalidate>
     <fieldset class="name">
-      <FormField :field="fullName" />
+      <FormField :field="fullName" @inputValue="(val) => { fullName.value = val }" />
+      <p>{{ this.fullName.value }}</p>
     </fieldset>
     <fieldset class="email-passwd">
-      <FormField :field="email" />
-      <FormField :field="password" />
+      <FormField :field="email" @inputValue="(val) => { email.value = val }" />
+      <p>{{ this.email.value }}</p>
+      <FormField :field="password" @inputValue="(val) => { password.value = val }" />
+      <p>{{ this.password.value }}</p>
     </fieldset>
     <fieldset class="phone-bd">
-      <FormField :field="phone" />
-      <FormField :field="birthdate" />
+      <FormField :field="phone" @inputValue="(val) => { phone.value = val }" />
+      <p>{{ this.phone.value }}</p>
+      <FormField :field="birthdate" @inputValue="(val) => { birthdate.value = val }" />
+      <p>{{ this.birthdate.value }}</p>
     </fieldset>
     <fieldset class="cb-btn">
       <CheckboxComponent :field="checkbox" />
@@ -35,7 +40,8 @@ export default {
           type: 'text',
           required: true,
           placeholder: "Name",
-          errorMessage: "Fullname Invalid"
+          errorMessage: "Fullname Invalid",
+          value: ""
         },
         email: {
           id: 'email',
@@ -43,7 +49,8 @@ export default {
           type: 'email',
           required: true,
           placeholder: 'foo@bar.com',
-          errorMessage: "Email Invalid"
+          errorMessage: "Email Invalid",
+          value: ""
         },
         password: {
           id: 'password',
@@ -51,7 +58,8 @@ export default {
           type: 'password',
           required: true,
           placeholder: 'Enter your password',
-          errorMessage: 'Password Invalid'
+          errorMessage: 'Password Invalid',
+          value: ""
         },
         phone: {
           id: 'phone',
@@ -59,7 +67,8 @@ export default {
           type: 'tel',
           required: false,
           placeholder: '(83) 00000-0000',
-          errorMessage: 'Phone Invalid'
+          errorMessage: 'Phone Invalid',
+          value: ""
         },
         birthdate: {
           id: 'birthdate',
@@ -67,20 +76,25 @@ export default {
           type: 'date',
           required: true,
           placeholder: 'dd/mm/yyyy',
-          errorMessage: 'Age Invalid'
+          errorMessage: 'Age Invalid',
+          value: ""
         },
         checkbox: {
           id: 'checkbox',
           label: 'I accept the terms and privacy',
           required: true,
-          errorMessage: "You must accept the terms"
+          errorMessage: "You must accept the terms",
+          value: ""
         }
       }
     },
     methods: {
         onRegister() {
-            router.push("/success");
+          router.push("/success");
         },
+        getValue(val) {
+          this.fullName.value = val;
+        }
     },
     components: { FormField, CheckboxComponent }
 };
