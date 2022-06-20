@@ -22,4 +22,11 @@ export default {
     font-size: 1em;
     margin: 5px 0 3vh 0;
 }
+
+@media (max-width: 768px) {
+    .error {
+        margin-bottom: 8px;
+        font-size: 0.875em
+    }
+}
 </style>

@@ -44,4 +44,14 @@ export default {
   border: 1px solid #0dbdbd;
   border-radius: 10px;
 }
+
+@media (max-width: 768px) {
+  div {
+    width: 100%;
+  }
+
+  #register-btn {
+    width: 100%;
+  }
+}
 </style>

@@ -161,5 +161,12 @@ form {
     flex: 1;
     width: 50%;
   }
+
+  .cb-btn {
+    margin-top: 4vw;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+  }
 }
 </style>

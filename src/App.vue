@@ -56,5 +56,13 @@ h1 {
   .main-container {
     box-shadow: none;
   }
+
+  .main-container img {
+    height: 25vw;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
 }
 </style>
