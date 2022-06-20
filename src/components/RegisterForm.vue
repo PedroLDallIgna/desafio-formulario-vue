@@ -13,9 +13,7 @@
     </fieldset>
     <fieldset class="cb-btn">
       <CheckboxComponent :field="fields.checkbox" @checked="(val) => validInputs[5] = val" />
-      <div>
-        <input type="submit" value="Register" id="register-btn" :disabled="btnDisabled" /> {{ btnState }}
-      </div>
+      <ButtonComponent :id="'register-btn'" :label="'Register'" :isDisabled="btnDisabled" />{{ btnState }}
     </fieldset>
   </form>
 </template>
@@ -25,6 +23,7 @@ import router from '@/router';
 import FormField from './FormField.vue';
 import CheckboxComponent from './form/CheckboxComponent.vue';
 import Patterns from '@/Patterns.js';
+import ButtonComponent from './form/ButtonComponent.vue';
 
 export default {
     name: "RegisterForm",
@@ -104,7 +103,7 @@ export default {
           }
         },
     },
-    components: { FormField, CheckboxComponent }
+    components: { FormField, CheckboxComponent, ButtonComponent }
 };
 </script>
 
@@ -146,19 +145,21 @@ form {
   align-items: center;
 }
 
-#register-btn {
-  background-color: #0dbdbd;
-  color: #ffffff;
-  font-size: 1em;
-  font-style: normal;
-  line-height: 1.125;
-  padding: 12px;
-  border: 1px solid #0dbdbd;
-  border-radius: 10px;
-}
+@media (max-width: 768px) {
+  form {
+    flex-direction: column;
+  }
 
-#register-btn:disabled {
-  background-color: #aaaaaa;
-  cursor: not-allowed;
+  .phone-bd {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    margin: 0;
+  }
+
+  .phone-bd * {
+    flex: 1;
+    width: 50%;
+  }
 }
 </style>

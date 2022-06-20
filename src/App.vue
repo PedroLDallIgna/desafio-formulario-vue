@@ -47,4 +47,14 @@ h1 {
   line-height: 1.5;
   color:#111111;
 }
+
+@media (max-width: 768px) {
+  main {
+    align-items: flex-start;
+  }
+
+  .main-container {
+    box-shadow: none;
+  }
+}
 </style>

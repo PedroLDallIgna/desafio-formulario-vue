@@ -1,10 +1,11 @@
 <template>
   <h1>Success</h1>
-  <button @click="goBack()">Go Back!</button>
+  <ButtonComponent :id="'back-btn'" :label="'Go Back!'" :isDisabled="false" @click="goBack()" />
 </template>
 
 <script>
 import router from "@/router";
+import ButtonComponent from "@/components/form/ButtonComponent.vue";
 
 export default {
   name: "SuccessView",
@@ -13,5 +14,6 @@ export default {
       router.push('/');
     },
   },
+  components: { ButtonComponent },
 };
 </script>
