@@ -16,6 +16,7 @@ export default {
     props: {
         field: Object,
     },
+    emits: [ 'checked' ],
     components: { ErrorMessage },
     data() {
         return {
@@ -33,6 +34,8 @@ export default {
             } else {
                 this.error.style.visibility = 'hidden';
             }
+
+            this.$emit('checked', this.isChecked);
         }
     }
 }

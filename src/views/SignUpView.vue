@@ -4,7 +4,6 @@
 </template>
 
 <script>
-// import router from '@/router';
 import RegisterForm from '@/components/RegisterForm.vue';
 
 export default {

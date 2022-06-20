@@ -1,25 +1,20 @@
 <template>
   <form @submit.prevent="onRegister()" novalidate>
     <fieldset class="name">
-      <FormField :field="fullName" @inputValue="(val) => { fullName.value = val }" />
-      <p>{{ this.fullName.value }}</p>
+      <FormField :field="fields.fullName" @inputValue="(val) => validInputs[0] = val" />
     </fieldset>
     <fieldset class="email-passwd">
-      <FormField :field="email" @inputValue="(val) => { email.value = val }" />
-      <p>{{ this.email.value }}</p>
-      <FormField :field="password" @inputValue="(val) => { password.value = val }" />
-      <p>{{ this.password.value }}</p>
+      <FormField :field="fields.email" @inputValue="(val) => validInputs[1] = val" />
+      <FormField :field="fields.password" @inputValue="(val) => validInputs[2] = val" />
     </fieldset>
     <fieldset class="phone-bd">
-      <FormField :field="phone" @inputValue="(val) => { phone.value = val }" />
-      <p>{{ this.phone.value }}</p>
-      <FormField :field="birthdate" @inputValue="(val) => { birthdate.value = val }" />
-      <p>{{ this.birthdate.value }}</p>
+      <FormField :field="fields.phone" @inputValue="(val) => validInputs[3] = val" />
+      <FormField :field="fields.birthdate" @inputValue="(val) => validInputs[4] = val" />
     </fieldset>
     <fieldset class="cb-btn">
-      <CheckboxComponent :field="checkbox" />
+      <CheckboxComponent :field="fields.checkbox" @checked="(val) => validInputs[5] = val" />
       <div>
-        <input type="submit" value="Register" id="register-btn">
+        <input type="submit" value="Register" id="register-btn" :disabled="btnDisabled" /> {{ btnState }}
       </div>
     </fieldset>
   </form>
@@ -29,72 +24,85 @@
 import router from '@/router';
 import FormField from './FormField.vue';
 import CheckboxComponent from './form/CheckboxComponent.vue';
+import Patterns from '@/Patterns.js';
 
 export default {
     name: "RegisterForm",
     data() {
       return {
-        fullName: {
-          id: 'full-name',
-          label: 'Full Name',
-          type: 'text',
-          required: true,
-          placeholder: "Name",
-          errorMessage: "Fullname Invalid",
-          value: ""
+        fields: {
+          fullName: {
+            id: 'full-name',
+            label: 'Full Name',
+            type: 'text',
+            required: true,
+            placeholder: "Name",
+            errorMessage: "Fullname Invalid",
+            isValid: false,
+          },
+          email: {
+            id: 'email',
+            label: 'Email',
+            type: 'email',
+            required: true,
+            placeholder: 'foo@bar.com',
+            errorMessage: "Email Invalid",
+            isValid: null,
+          },
+          password: {
+            id: 'password',
+            label: 'Password',
+            type: 'password',
+            required: true,
+            placeholder: 'Enter your password',
+            errorMessage: 'Password Invalid',
+            isValid: null,
+          },
+          phone: {
+            id: 'phone',
+            label: 'Phone',
+            type: 'tel',
+            required: false,
+            placeholder: '(83) 00000-0000',
+            errorMessage: 'Phone Invalid',
+            isValid: null,
+          },
+          birthdate: {
+            id: 'birthdate',
+            label: 'Birthdate',
+            type: 'date',
+            required: true,
+            placeholder: 'dd/mm/yyyy',
+            errorMessage: 'Age Invalid',
+            isValid: null,
+          },
+          checkbox: {
+            id: 'checkbox',
+            label: 'I accept the terms and privacy',
+            required: true,
+            errorMessage: "You must accept the terms",
+            value: "",
+          }
         },
-        email: {
-          id: 'email',
-          label: 'Email',
-          type: 'email',
-          required: true,
-          placeholder: 'foo@bar.com',
-          errorMessage: "Email Invalid",
-          value: ""
-        },
-        password: {
-          id: 'password',
-          label: 'Password',
-          type: 'password',
-          required: true,
-          placeholder: 'Enter your password',
-          errorMessage: 'Password Invalid',
-          value: ""
-        },
-        phone: {
-          id: 'phone',
-          label: 'Phone',
-          type: 'tel',
-          required: false,
-          placeholder: '(83) 00000-0000',
-          errorMessage: 'Phone Invalid',
-          value: ""
-        },
-        birthdate: {
-          id: 'birthdate',
-          label: 'Birthdate',
-          type: 'date',
-          required: true,
-          placeholder: 'dd/mm/yyyy',
-          errorMessage: 'Age Invalid',
-          value: ""
-        },
-        checkbox: {
-          id: 'checkbox',
-          label: 'I accept the terms and privacy',
-          required: true,
-          errorMessage: "You must accept the terms",
-          value: ""
+        validInputs: [false, false, false, true, false, true],
+        btnDisabled: true,
+      }
+    },
+    computed: {
+      btnState() {
+        if (this.validInputs.filter(item => item == true).length == 6) {
+          this.btnDisabled = false;
+        } else {
+          this.btnDisabled = true;
         }
       }
     },
     methods: {
         onRegister() {
-          router.push("/success");
+          if (this.validInputs.filter(item => item == true).length == 6) {
+            router.push("/success");
+          }
         },
-        getValue(val) {
-          this.fullName.value = val;
-        }
     },
     components: { FormField, CheckboxComponent }
 };
@@ -138,12 +146,6 @@ form {
   align-items: center;
 }
 
-.phone-bd input::-webkit-calendar-picker-indicator {
-  background: none;
-  width: 0;
-  height: 0;
-}
-
 #register-btn {
   background-color: #0dbdbd;
   color: #ffffff;
@@ -153,5 +155,10 @@ form {
   padding: 12px;
   border: 1px solid #0dbdbd;
   border-radius: 10px;
+}
+
+#register-btn:disabled {
+  background-color: #aaaaaa;
+  cursor: not-allowed;
 }
 </style>

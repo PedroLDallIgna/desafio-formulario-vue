@@ -1,5 +1,5 @@
 <template>
-    <input :type="type" :required="required" :id="id" :placeholder="placeholder" v-model="inputValue" @change="onValidate(), $emit('value', inputValue)" @focus="validate" />
+    <input :type="type" :required="required" :id="id" :placeholder="placeholder" v-model="inputValue" @change="onValidate()" @focus="validate" />
     <span>{{ validate }}</span>
 </template>
 
@@ -14,12 +14,12 @@ export default {
         id: String,
         placeholder: String,
     },
-    emits: [ 'value' ],
+    emits: [ 'validation' ],
     data() {
         return {
             inputValue: "",
             inputField: null,
-            isValid: true,
+            isValid: false,
             error: null,
         };
     },
@@ -30,14 +30,43 @@ export default {
     computed: {
         validate() {
             if (this.inputField) {
-                if (this.inputValue !== "") {
-                    // change the background color to red or green
-                    if (Patterns[this.id].test(this.inputValue)) {
-                        this.inputField.style.backgroundColor = '#4dff4d35';
-                        this.inputField.style.borderColor = '#00ff00';
+                if (this.required) {
+                    if (this.inputValue !== "") {
+                        if (this.id == "birthdate") {
+                            const age = Math.abs(new Date(Date.now() - new Date(this.inputValue).getTime()).getUTCFullYear() - 1970)
+                            this.isValid = age <= 121;
+                            if (this.isValid) {
+                                this.inputField.style.backgroundColor = '#4dff4d35';
+                                this.inputField.style.borderColor = '#00ff00';
+                            } else {
+                                this.inputField.style.backgroundColor = '#ff4d4d35';
+                                this.inputField.style.borderColor = '#ff0000';
+                            }
+                        } else {
+                            this.isValid = Patterns[this.id].test(this.inputValue);
+                            if (this.isValid) {
+                                this.inputField.style.backgroundColor = '#4dff4d35';
+                                this.inputField.style.borderColor = '#00ff00';
+                            } else {
+                                this.inputField.style.backgroundColor = '#ff4d4d35';
+                                this.inputField.style.borderColor = '#ff0000';
+                            }
+                        }
+                    }
+                } else {
+                    if (this.inputValue !== "") {
+                        this.isValid = Patterns[this.id].test(this.inputValue);
+                        if (this.isValid) {
+                            this.inputField.style.backgroundColor = '#4dff4d35';
+                            this.inputField.style.borderColor = '#00ff00';
+                        } else {
+                            this.inputField.style.backgroundColor = '#ff4d4d35';
+                            this.inputField.style.borderColor = '#ff0000';
+                        }
                     } else {
-                        this.inputField.style.backgroundColor = '#ff4d4d35';
-                        this.inputField.style.borderColor = '#ff0000';
+                        this.isValid = true;
+                        this.inputField.style.backgroundColor = '#ffffff';
+                        this.inputField.style.borderColor = '#aaaaaa';
                     }
                 }
             }
@@ -45,16 +74,13 @@ export default {
     },
     methods: {
         onValidate() {
-            this.isValid = Patterns[this.id].test(this.inputValue);
-
             if (this.isValid) {
-                this.inputField.style.borderColor = '#00ff00';
                 this.inputField.style.backgroundColor = '#ffffff';
                 this.error.style.visibility = 'hidden';
             } else {
-                this.inputField.style.borderColor = '#ff0000';
                 this.error.style.visibility = 'visible';
             }
+            this.$emit('validation', this.isValid);
         }
     }
 }
@@ -83,5 +109,13 @@ input {
 
 :focus {
     outline: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    display: block;
+    background: url('@/assets/date_arrow.svg') no-repeat;
+    background-position: 100% center;
+    cursor: pointer;
 }
 </style>
